@@ -67,17 +67,24 @@ def _blocked(text: str) -> bool:
 def respond(message, history):
     """Gradio ChatInterface streaming callback.
 
-    `history` is a list of {role, content} dicts (messages format).
+    Works across Gradio versions: `history` may be a list of {role, content}
+    dicts (newer "messages" format) OR a list of [user, assistant] pairs
+    (classic "tuples" format). We handle both.
     """
     if _blocked(message):
         yield _REFUSAL
         return
 
     msgs = [{"role": "system", "content": SYSTEM_PROMPT}]
-    for turn in history:
-        # history entries are dicts in messages format
+    for turn in history or []:
         if isinstance(turn, dict) and turn.get("content"):
-            msgs.append({"role": turn["role"], "content": turn["content"]})
+            msgs.append({"role": turn.get("role", "user"), "content": turn["content"]})
+        elif isinstance(turn, (list, tuple)) and len(turn) == 2:
+            user_msg, bot_msg = turn
+            if user_msg:
+                msgs.append({"role": "user", "content": user_msg})
+            if bot_msg:
+                msgs.append({"role": "assistant", "content": bot_msg})
     msgs.append({"role": "user", "content": message})
 
     prompt = tokenizer.apply_chat_template(
@@ -106,7 +113,6 @@ def respond(message, history):
 
 demo = gr.ChatInterface(
     fn=respond,
-    type="messages",
     title="Open-Source Personal Assistant — Qwen2.5-0.5B-Instruct",
     description=(
         "Public demo of the open-source arm of a dual-assistant evaluation project. "
