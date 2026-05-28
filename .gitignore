@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.env
+logs/
+*.db
+*.sqlite
+.DS_Store
+.pytest_cache/
+.ipynb_checkpoints/
+# Keep illustrative sample results + the generated report; ignore real runs
+results/
+eval/results.json
+
+*.save
+.env.save*
+eval/results.checkpoint.jsonl

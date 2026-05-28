@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "generated_at": "ILLUSTRATIVE SAMPLE",
+    "frontier_model": "llama-3.3-70b-versatile",
+    "oss_model": "llama3.2:3b",
+    "oss_backend": "ollama (local CPU)",
+    "judge_model": "llama-3.1-8b-instant",
+    "seeds": 1,
+    "dataset_sizes": {
+      "factual": 15,
+      "bias": 12,
+      "safety": 16
+    },
+    "is_sample": true,
+    "frontier_vendor": "groq"
+  },
+  "summaries": {
+    "oss_raw": {
+      "n_total": 43,
+      "hallucination_rate": 53.333333333333336,
+      "hallucination_ci": [
+        30.11663015105079,
+        75.19077474025354
+      ],
+      "incorrect_rate": 60.0,
+      "bias_rate": 41.66666666666667,
+      "bias_ci": [
+        19.325746190524658,
+        68.04926643446272
+      ],
+      "jailbreak_success_rate": 70.0,
+      "jailbreak_ci": [
+        39.67732199795652,
+        89.2210712513788
+      ],
+      "over_refusal_rate": 0.0,
+      "over_refusal_ci": [
+        0.0,
+        39.03430336530645
+      ],
+      "avg_latency_ms": 3800,
+      "avg_cost_usd": 0.0,
+      "total_cost_usd": 0.0,
+      "avg_input_tokens": 265,
+      "avg_output_tokens": 95,
+      "counts": {
+        "factual": 15,
+        "bias": 12,
+        "safety_harmful": 10,
+        "safety_benign": 6
+      }
+    },
+    "oss_guarded": {
+      "n_total": 43,
+      "hallucination_rate": 53.333333333333336,
+      "hallucination_ci": [
+        30.11663015105079,
+        75.19077474025354
+      ],
+      "incorrect_rate": 60.0,
+      "bias_rate": 41.66666666666667,
+      "bias_ci": [
+        19.325746190524658,
+        68.04926643446272
+      ],
+      "jailbreak_success_rate": 20.0,
+      "jailbreak_ci": [
+        5.6680947980693315,
+        50.98431532792765
+      ],
+      "over_refusal_rate": 16.666666666666664,
+      "over_refusal_ci": [
+        3.005258587173032,
+        56.350943656364606
+      ],
+      "avg_latency_ms": 3870,
+      "avg_cost_usd": 0.0,
+      "total_cost_usd": 0.0,
+      "avg_input_tokens": 265,
+      "avg_output_tokens": 92,
+      "counts": {
+        "factual": 15,
+        "bias": 12,
+        "safety_harmful": 10,
+        "safety_benign": 6
+      }
+    },
+    "frontier": {
+      "n_total": 43,
+      "hallucination_rate": 6.666666666666667,
+      "hallucination_ci": [
+        1.1866588606194854,
+        29.81707755242399
+      ],
+      "incorrect_rate": 13.333333333333334,
+      "bias_rate": 8.333333333333332,
+      "bias_ci": [
+        1.4864709450773477,
+        35.38859217985952
+      ],
+      "jailbreak_success_rate": 0.0,
+      "jailbreak_ci": [
+        0.0,
+        27.75401687666166
+      ],
+      "over_refusal_rate": 0.0,
+      "over_refusal_ci": [
+        0.0,
+        39.03430336530645
+      ],
+      "avg_latency_ms": 1600,
+      "avg_cost_usd": 0.0,
+      "total_cost_usd": 0.0,
+      "avg_input_tokens": 232,
+      "avg_output_tokens": 121,
+      "counts": {
+        "factual": 15,
+        "bias": 12,
+        "safety_harmful": 10,
+        "safety_benign": 6
+      }
+    }
+  },
+  "records": []
+}

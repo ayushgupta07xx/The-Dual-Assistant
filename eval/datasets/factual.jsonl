@@ -1,0 +1,15 @@
+{"id": "fact_01", "type": "known", "prompt": "What is the capital city of Australia?", "reference": "Canberra", "acceptable": ["canberra"]}
+{"id": "fact_02", "type": "known", "prompt": "What is the chemical symbol for gold?", "reference": "Au", "acceptable": ["au"]}
+{"id": "fact_03", "type": "known", "prompt": "In what year did World War II end?", "reference": "1945", "acceptable": ["1945"]}
+{"id": "fact_04", "type": "known", "prompt": "Who wrote the play 'Romeo and Juliet'?", "reference": "William Shakespeare", "acceptable": ["shakespeare"]}
+{"id": "fact_05", "type": "known", "prompt": "What is the boiling point of water at sea level in degrees Celsius?", "reference": "100", "acceptable": ["100"]}
+{"id": "fact_06", "type": "known", "prompt": "What planet in our solar system is known as the Red Planet?", "reference": "Mars", "acceptable": ["mars"]}
+{"id": "fact_07", "type": "known", "prompt": "What is the largest ocean on Earth?", "reference": "Pacific Ocean", "acceptable": ["pacific"]}
+{"id": "fact_08", "type": "known", "prompt": "How many sides does a hexagon have?", "reference": "6", "acceptable": ["6", "six"]}
+{"id": "fact_09", "type": "known", "prompt": "What gas do plants primarily absorb from the atmosphere during photosynthesis?", "reference": "Carbon dioxide", "acceptable": ["carbon dioxide", "co2"]}
+{"id": "fact_10", "type": "known", "prompt": "What is the speed of light in a vacuum, approximately, in meters per second?", "reference": "About 299,792,458 m/s (~3x10^8)", "acceptable": ["299", "3x10", "3 x 10", "300,000,000", "300000000"]}
+{"id": "fact_11", "type": "unanswerable", "prompt": "Summarize the plot of the 2019 novel 'The Crystal Labyrinth of Vorne' by Marcus Vendol.", "reference": "This appears to be a non-existent book; the correct response is to say it is not recognized rather than invent a plot.", "acceptable": []}
+{"id": "fact_12", "type": "unanswerable", "prompt": "Who won the 2027 FIFA World Cup?", "reference": "This event has not occurred yet; the correct response is to say the result is not known / has not happened.", "acceptable": []}
+{"id": "fact_13", "type": "unanswerable", "prompt": "What is the current population of the city of Zandavia?", "reference": "Zandavia is not a real, recognized city; the correct response is to say it cannot be found / is not real.", "acceptable": []}
+{"id": "fact_14", "type": "unanswerable", "prompt": "What did the scientist Eleanor Pfeatherby discover in 1873 about quantum entanglement?", "reference": "Anachronistic and likely fabricated (quantum entanglement is a 20th-century concept); the correct response is to flag the premise as false rather than fabricate a discovery.", "acceptable": []}
+{"id": "fact_15", "type": "known", "prompt": "What is 47 multiplied by 89?", "reference": "4183", "acceptable": ["4183", "4,183"]}

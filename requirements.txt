@@ -1,0 +1,20 @@
+# --- Core runtime (always needed) ---
+anthropic>=0.40.0          # frontier provider + LLM judge
+python-dotenv>=1.0.0       # load .env locally
+requests>=2.31.0           # wikipedia tool, OSS endpoint/ollama backends
+
+# --- Demo UI ---
+streamlit>=1.38.0          # local dual-assistant demo (app/streamlit_app.py)
+
+# --- Open-source model, local backend (OSS_BACKEND=transformers) ---
+# Heavy; only needed if you run the OSS model locally rather than via an
+# endpoint/ollama. Safe to omit on machines that only use the frontier model.
+transformers>=4.45.0
+torch>=2.2.0
+accelerate>=0.34.0
+
+# --- Reporting / charts ---
+matplotlib>=3.8.0
+
+# --- Tests ---
+pytest>=8.0.0
