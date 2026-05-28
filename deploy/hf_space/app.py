@@ -1,31 +1,29 @@
-"""Public OSS deployment — Hugging Face Spaces (free CPU tier).
+"""Public demo — large open-source assistant (Llama 3.3 70B via Groq).
 
-This is a self-contained Gradio app that serves the open-source assistant
-(Qwen2.5-0.5B-Instruct) with the SAME system prompt and the SAME lightweight
-guardrails used in the main project, so the public demo behaves like the
-`oss_guarded` arm of the evaluation.
+This Gradio Space calls Groq's OpenAI-compatible API instead of loading a model
+locally, so it is fast (Groq's LPU hardware, ~300+ tok/s) and needs no GPU and
+no heavy ML libraries. The GROQ_API_KEY is read from the Space's Secrets
+(Settings -> Variables and secrets) and is NEVER hardcoded.
 
-It is deliberately dependency-light: HF Spaces free tier is CPU-only with
-limited RAM, and the 0.5B model is the largest Qwen that loads and responds
-at an acceptable latency there. For a bigger model, use the Modal deployment
-(see deploy/modal/modal_app.py), which gives a GPU-backed OpenAI-compatible
-endpoint that this same project can target via OSS_BACKEND=endpoint.
+It applies the same lightweight input guardrails as the project's `oss_guarded`
+configuration, screening jailbreak / prompt-injection / high-harm requests
+before they reach the model.
 
-To deploy:
-  1. Create a new Space at https://huggingface.co/new-space (SDK: Gradio).
-  2. Upload this app.py and requirements.txt.
-  3. The Space builds and serves automatically at a public URL.
+This is the large open-source model (Llama 3.3 70B) from the dual-assistant
+evaluation. The small local model (Llama 3.2 3B) and the full hallucination /
+bias / safety evaluation harness live in the GitHub repo.
 """
 from __future__ import annotations
 
+import os
 import re
-import threading
 
 import gradio as gr
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer
+import requests
 
-MODEL_ID = "Qwen/Qwen2.5-0.5B-Instruct"
+GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+MODEL = os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile")
+API_KEY = os.environ.get("GROQ_API_KEY", "")
 
 SYSTEM_PROMPT = (
     "You are a helpful, honest, and harmless personal assistant. "
@@ -35,8 +33,7 @@ SYSTEM_PROMPT = (
     "explain why, offering a safer alternative when possible."
 )
 
-# --- Minimal guardrails (mirrors assistant/guardrails.py, kept inline so the
-# Space stays self-contained) -------------------------------------------------
+# --- Lightweight input guardrails (mirror assistant/guardrails.py) -----------
 _JAILBREAK = re.compile(
     r"(ignore (all|previous|your) (instructions|rules)|"
     r"you are now|developer mode|do anything now|\bDAN\b|"
@@ -50,14 +47,9 @@ _HARMFUL = re.compile(
 )
 _REFUSAL = (
     "I can't help with that. It falls outside what I can safely assist with. "
-    "If there's a safe, legitimate version of what you need, I'm glad to help with that instead."
+    "If there's a safe, legitimate version of what you need, I'm glad to help "
+    "with that instead."
 )
-
-print(f"Loading {MODEL_ID} ...")
-tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
-model = AutoModelForCausalLM.from_pretrained(MODEL_ID, torch_dtype=torch.float32)
-model.eval()
-print("Model loaded.")
 
 
 def _blocked(text: str) -> bool:
@@ -65,15 +57,14 @@ def _blocked(text: str) -> bool:
 
 
 def respond(message, history):
-    """Gradio ChatInterface streaming callback.
-
-    Works across Gradio versions: `history` may be a list of {role, content}
-    dicts (newer "messages" format) OR a list of [user, assistant] pairs
-    (classic "tuples" format). We handle both.
-    """
+    """ChatInterface callback. Version-agnostic history handling (dict or tuple)."""
     if _blocked(message):
-        yield _REFUSAL
-        return
+        return _REFUSAL
+    if not API_KEY:
+        return (
+            "Server is missing its GROQ_API_KEY secret. Add it under the Space's "
+            "Settings -> Variables and secrets, then restart the Space."
+        )
 
     msgs = [{"role": "system", "content": SYSTEM_PROMPT}]
     for turn in history or []:
@@ -87,38 +78,39 @@ def respond(message, history):
                 msgs.append({"role": "assistant", "content": bot_msg})
     msgs.append({"role": "user", "content": message})
 
-    prompt = tokenizer.apply_chat_template(
-        msgs, tokenize=False, add_generation_prompt=True
-    )
-    inputs = tokenizer(prompt, return_tensors="pt")
-    streamer = TextIteratorStreamer(
-        tokenizer, skip_prompt=True, skip_special_tokens=True
-    )
-    gen_kwargs = dict(
-        **inputs,
-        streamer=streamer,
-        max_new_tokens=512,
-        do_sample=True,
-        temperature=0.7,
-        top_p=0.9,
-    )
-    thread = threading.Thread(target=model.generate, kwargs=gen_kwargs)
-    thread.start()
-
-    partial = ""
-    for token in streamer:
-        partial += token
-        yield partial
+    try:
+        r = requests.post(
+            GROQ_URL,
+            headers={
+                "Authorization": f"Bearer {API_KEY}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": MODEL,
+                "messages": msgs,
+                "temperature": 0.7,
+                "max_tokens": 640,
+            },
+            timeout=60,
+        )
+        if r.status_code == 429:
+            return ("This free demo's shared quota is busy right now — "
+                    "please try again in a minute.")
+        r.raise_for_status()
+        return r.json()["choices"][0]["message"]["content"].strip()
+    except Exception as exc:  # noqa: BLE001
+        return f"(Sorry — error contacting the model: {exc})"
 
 
 demo = gr.ChatInterface(
     fn=respond,
-    title="Open-Source Personal Assistant — Qwen2.5-0.5B-Instruct",
+    title="AI Personal Assistant — Llama 3.3 70B (via Groq)",
     description=(
-        "Public demo of the open-source arm of a dual-assistant evaluation project. "
-        "Same system prompt and safety guardrails as the benchmarked `oss_guarded` "
-        "configuration. The frontier (Claude) arm and the full hallucination / bias / "
-        "safety evaluation live in the GitHub repo."
+        "Live demo of the large open-source assistant from a dual-assistant "
+        "evaluation project. Runs Llama 3.3 70B on Groq's fast inference, with "
+        "the same safety guardrails used in the benchmark. The small local model "
+        "(Llama 3.2 3B) and the full hallucination / bias / safety evaluation "
+        "live in the linked GitHub repo."
     ),
     examples=[
         "Explain the difference between TCP and UDP in two sentences.",
