@@ -9,25 +9,15 @@
 ![Tests](https://img.shields.io/badge/tests-18_passing-2EA043)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
-**Two AI personal assistants on one shared core — a small open-source model run locally, and a large open-source model served via a hosted API — measured against each other on the three risks an AI-liability insurer actually underwrites: hallucination, bias, and content-safety.**
+**Two personal assistants on one shared core — a small open-source model run locally, and a large open-source model served via a hosted API — measured against each other on the three risks a machine-learning-liability insurer actually underwrites: hallucination, bias, and content-safety.**
 
-> **Live demo:** `https://huggingface.co/spaces/<your-space>` &nbsp;•&nbsp; **Repo:** `https://github.com/<your-username>/dual-assistant-eval`
->
-> *(Fill these two links in once the Space is running.)*
+> **▶ Live demo:** https://huggingface.co/spaces/ayushgupta7777/oss-assistant-demo &nbsp;•&nbsp; **🎥 Video walkthrough:** https://youtu.be/HpwwtFg0ai4 &nbsp;•&nbsp; **Repo:** https://github.com/ayushgupta07xx/dual-assistant-eval
 
 ## 🎥 Demo
 
-<!-- ===================================================================
-     DEMO VIDEO GOES HERE.
-     Easiest method: open this README in GitHub's web editor (the pencil),
-     then DRAG-AND-DROP your .mp4 onto this line. GitHub uploads + hosts it
-     and replaces this comment with a playable <video> tag automatically.
-     Alternative: replace this block with a clickable thumbnail linking to
-     YouTube/Loom:
-        [![Watch the demo](docs/img/video_thumb.png)](https://youtu.be/XXXX)
-     ==================================================================== -->
+[![Watch the demo](https://img.youtube.com/vi/HpwwtFg0ai4/maxresdefault.jpg)](https://youtu.be/HpwwtFg0ai4)
 
-*▶️ A ~60-second walkthrough will be embedded here (drag your `.mp4` into the GitHub editor on this line).*
+*▶ A ~90-second walkthrough — click to watch on YouTube.*
 
 ## 📊 Results at a glance
 
@@ -45,7 +35,7 @@ This is a recruitment assignment, so this document does double duty: it explains
 
 ## 1. What this assignment is really testing
 
-The brief asks for two assistants and an evaluation of hallucination, bias, and content-safety. Taken at face value that is "build two chatbots and compare them." But the company sells **AI liability insurance** — coverage for exactly those three failure modes. Read that way, the chatbots are the vehicle and the **real deliverable is risk quantification**: can you put defensible numbers, with uncertainty, on how likely a model is to hallucinate, to produce biased output, or to comply with a harmful request?
+The brief asks for two assistants and an evaluation of hallucination, bias, and content-safety. Taken at face value that is "build two chatbots and compare them." But the company sells **liability insurance for machine-learning systems** — coverage for exactly those three failure modes. Read that way, the chatbots are the vehicle and the **real deliverable is risk quantification**: can you put defensible numbers, with uncertainty, on how likely a model is to hallucinate, to produce biased output, or to comply with a harmful request?
 
 So the engineering rigor is concentrated where an insurer would look: the **evaluation harness** and the **report**. The two assistants are deliberately kept simple and *identical except for the model*, because the model is the variable being measured. Everything else — memory, tools, guardrails, logging — is shared infrastructure so the comparison is clean.
 
@@ -216,7 +206,7 @@ A stated design constraint, not an accident:
 - **Every paid path was costed and consciously declined.** Anthropic's $5 minimum, Gemini's daily-cap free tier, a GPU Space at ~$0.40/hr — each was evaluated (see `RUNBOOK.md` history) and set aside in favor of the free route, with the paid route left one config flag away.
 - **Efficiency as a feature.** A 3B that runs on a laptop and a 70B that answers in milliseconds (throttling aside) is a stack a small insurer could actually afford to run continuously. The cheap version *is* the product-relevant version.
 
-The result is not a stripped-down submission; it is a **complete, rigorous one engineered to cost nothing** — which, for a company underwriting AI risk on real budgets, is arguably the more compelling demonstration.
+The result is not a stripped-down submission; it is a **complete, rigorous one engineered to cost nothing** — which, for a company underwriting model risk on real budgets, is arguably the more compelling demonstration.
 
 ---
 
