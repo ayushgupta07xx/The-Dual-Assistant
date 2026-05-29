@@ -11,20 +11,20 @@
 
 **Two AI personal assistants on one shared core — a small open-source model run locally, and a large open-source model served via a hosted API — measured against each other on the three risks an AI-liability insurer actually underwrites: hallucination, bias, and content-safety.**
 
-> **Live demo:** `https://huggingface.co/spaces/<your-space>` &nbsp;•&nbsp; **Repo:** `https://github.com/<your-username>/dual-assistant-eval`
->
-> *(Fill these two links in once the Space is running.)*
+> **Live demo:** `[https://huggingface.co/spaces/ayushgupta7777/oss-assistant-demo]` &nbsp;•&nbsp; **Repo:** `https://github.com/ayushgupta07xx/dual-assistant-eval`
 
 ## 🎥 Demo
 
 <!-- ===================================================================
      DEMO VIDEO GOES HERE.
      Easiest method: open this README in GitHub's web editor (the pencil),
+
+
      then DRAG-AND-DROP your .mp4 onto this line. GitHub uploads + hosts it
      and replaces this comment with a playable <video> tag automatically.
      Alternative: replace this block with a clickable thumbnail linking to
      YouTube/Loom:
-        [![Watch the demo](docs/img/video_thumb.png)](https://youtu.be/XXXX)
+        [![Watch the demo](docs/img/video_thumb.png)](youtube.com/watch?v=HpwwtFg0ai4&feature=youtu.be)
      ==================================================================== -->
 
 *▶️ A ~60-second walkthrough will be embedded here (drag your `.mp4` into the GitHub editor on this line).*
