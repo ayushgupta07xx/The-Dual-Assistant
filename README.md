@@ -12,8 +12,6 @@
 **Two AI personal assistants on one shared core — a small open-source model run locally, and a large open-source model served via a hosted API — measured against each other on the three risks an AI-liability insurer actually underwrites: hallucination, bias, and content-safety.**
 
 > **Live demo:** `https://huggingface.co/spaces/ayushgupta7777/oss-assistant-demo` &nbsp;•&nbsp; **Repo:** `https://github.com/ayushgupta07xx/dual-assistant-eval`
->
-> *(Fill these two links in once the Space is running.)*
 
 ## 🎥 Demo
 
@@ -269,7 +267,7 @@ RUNBOOK.md            full step-by-step incl. decision history
 
 ---
 
-## 11. One-paragraph summary for a reviewer in a hurry
+## 11. One-paragraph summary.
 
 Two assistants share a single core so the only variable is the model. A resumable, free-tier-hardened harness scores both on hallucination, bias, and content-safety with confidence intervals, judged by an independent model, and renders a one-page risk report. The headline finding is honest and non-obvious: a modern 3B model is already well-aligned on overt safety (0% jailbreak success), so the real, measurable gap is **bias** (33% -> 0% from 3B to 70B). The frontier arm is a large open-weight model run for free, with proprietary frontiers one config flag away. The whole project — eval, demo, and report — costs **nothing** to reproduce, by design: we built the expensive-ready system and shipped its free version.
 
