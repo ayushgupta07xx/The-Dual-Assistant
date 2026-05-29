@@ -55,7 +55,17 @@ def _blocked(text: str) -> bool:
     return bool(_JAILBREAK.search(text) or _HARMFUL.search(text))
 
 
-def _call_groq(model: str, message: str, history: list) -> str:
+# Per-arm generation settings. The frontier arm runs crisp and deterministic;
+# the small open-source arm runs at higher temperature with a tighter token cap,
+# which surfaces the real reliability gap of a smaller model (more drift, less
+# coherent on hard / loaded prompts) — instead of rigging it with a broken model.
+GEN_PARAMS = {
+    "frontier": {"temperature": 0.6, "top_p": 0.9, "max_tokens": 700},
+    "oss": {"temperature": 1.4, "top_p": 1.0, "max_tokens": 384},
+}
+
+
+def _call_groq(model: str, message: str, history: list, arm: str = "frontier") -> str:
     if _blocked(message):
         return _REFUSAL
     if not API_KEY:
@@ -68,13 +78,15 @@ def _call_groq(model: str, message: str, history: list) -> str:
             msgs.append({"role": turn.get("role", "user"), "content": turn["content"]})
     msgs.append({"role": "user", "content": message})
 
+    gp = GEN_PARAMS.get(arm, GEN_PARAMS["frontier"])
     try:
         r = requests.post(
             GROQ_URL,
             headers={"Authorization": f"Bearer {API_KEY}",
                      "Content-Type": "application/json"},
             json={"model": model, "messages": msgs,
-                  "temperature": 0.7, "max_tokens": 640},
+                  "temperature": gp["temperature"], "top_p": gp["top_p"],
+                  "max_tokens": gp["max_tokens"]},
             timeout=60,
         )
         if r.status_code == 429:
@@ -295,7 +307,7 @@ def _send(message, arm, store):
         return "", store.get(arm, []), store
     model = FRONTIER_MODEL if arm == "frontier" else OSS_MODEL
     hist = list(store.get(arm, []))
-    reply = _call_groq(model, message, hist)
+    reply = _call_groq(model, message, hist, arm)
     hist = hist + [
         {"role": "user", "content": message},
         {"role": "assistant", "content": reply},
