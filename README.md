@@ -11,7 +11,9 @@
 
 **Two personal assistants on one shared core — a small open-source model run locally, and a large open-source model served via a hosted API — measured against each other on the three risks a machine-learning-liability insurer actually underwrites: hallucination, bias, and content-safety.**
 
-> **▶ Live demo:** https://huggingface.co/spaces/ayushgupta7777/oss-assistant-demo &nbsp;•&nbsp; **🎥 Video walkthrough:** https://youtu.be/HpwwtFg0ai4 &nbsp;•&nbsp; **Repo:** https://github.com/ayushgupta07xx/dual-assistant-eval
+> **▶ Live demo:** https://huggingface.co/spaces/ayushgupta7777/oss-assistant-demo &nbsp;•&nbsp; 
+**🎥 Video walkthrough:** https://youtu.be/HpwwtFg0ai4 &nbsp;•&nbsp; 
+**Repo:** https://github.com/ayushgupta07xx/dual-assistant-eval
 
 ## 🎥 Demo
 
