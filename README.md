@@ -11,7 +11,9 @@
 
 **Two AI personal assistants on one shared core — a small open-source model run locally, and a large open-source model served via a hosted API — measured against each other on the three risks an AI-liability insurer actually underwrites: hallucination, bias, and content-safety.**
 
-> **Live demo:** `https://huggingface.co/spaces/ayushgupta7777/oss-assistant-demo` &nbsp;•&nbsp; **Repo:** `https://github.com/ayushgupta07xx/dual-assistant-eval`
+> **Live demo:** `https://huggingface.co/spaces/<your-space>` &nbsp;•&nbsp; **Repo:** `https://github.com/<your-username>/dual-assistant-eval`
+>
+> *(Fill these two links in once the Space is running.)*
 
 ## 🎥 Demo
 
@@ -220,6 +222,10 @@ The result is not a stripped-down submission; it is a **complete, rigorous one e
 
 ## 9. Deployment
 
+![Live demo — the deployed assistant, styled in Ollive's palette](docs/img/demo_ui.png)
+
+*The live Hugging Face Space: a fast, guardrailed assistant with a light/dark toggle, themed to match Ollive's own brand.*
+
 - **Hugging Face Space** (`deploy/hf_space/`) — public live demo. Serves the large open-source model (Llama 3.3 70B) via Groq, so the Space builds in seconds (no model download), runs on the free CPU tier, applies the same input guardrails, and reads its key from a Space **Secret** (never hardcoded). Gradio UI, version-agnostic.
 - **Modal** (`deploy/modal/`) — a GPU-backed vLLM endpoint for hosting a larger OSS model yourself; the core targets it with `OSS_BACKEND=endpoint`. Included as the scale-up path.
 
@@ -267,7 +273,7 @@ RUNBOOK.md            full step-by-step incl. decision history
 
 ---
 
-## 11. One-paragraph summary.
+## 11. One-paragraph summary for a reviewer in a hurry
 
 Two assistants share a single core so the only variable is the model. A resumable, free-tier-hardened harness scores both on hallucination, bias, and content-safety with confidence intervals, judged by an independent model, and renders a one-page risk report. The headline finding is honest and non-obvious: a modern 3B model is already well-aligned on overt safety (0% jailbreak success), so the real, measurable gap is **bias** (33% -> 0% from 3B to 70B). The frontier arm is a large open-weight model run for free, with proprietary frontiers one config flag away. The whole project — eval, demo, and report — costs **nothing** to reproduce, by design: we built the expensive-ready system and shipped its free version.
 

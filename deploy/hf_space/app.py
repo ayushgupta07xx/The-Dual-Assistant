@@ -81,18 +81,10 @@ def respond_core(message: str, history: list) -> str:
 
 # --- Dark by default; toggle flips light/dark (sun=switch-to-light) ----------
 INIT_JS = """
-() => {
-  document.body.classList.add('dark');
-  const b = document.querySelector('#theme-toggle button');
-  if (b) { b.textContent = '\u2600'; }
-}
+() => { document.body.classList.add('dark'); }
 """
 TOGGLE_JS = """
-() => {
-  const isDark = document.body.classList.toggle('dark');
-  const b = document.querySelector('#theme-toggle button');
-  if (b) { b.textContent = isDark ? '\u2600' : '\u263E'; }
-}
+() => { document.body.classList.toggle('dark'); }
 """
 
 THEME = gr.themes.Base(
@@ -135,15 +127,15 @@ CSS = """
 footer { display: none !important; }
 
 /* theme toggle, anchored top-right of the content column */
-#theme-toggle { position: absolute; top: 14px; right: 14px; z-index: 100; width: 40px; min-width: 0 !important; flex: none !important; }
-#theme-toggle button {
-  width: 40px !important; min-width: 40px !important; height: 40px; padding: 0 !important;
-  border-radius: 50% !important; font-size: 17px; line-height: 1;
+#theme-toggle, #theme-toggle button {
+  position: absolute; top: 14px; right: 14px; z-index: 100;
+  width: 40px !important; min-width: 40px !important; height: 40px !important; padding: 0 !important;
+  border-radius: 50% !important; font-size: 18px !important; line-height: 1 !important; flex: none !important;
   background: #fbfcf9 !important; border: 1px solid #e2e7dd !important;
   color: #5e6b60 !important; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
-#theme-toggle button:hover { border-color: var(--accent) !important; color: var(--accent) !important; }
-.dark #theme-toggle button { background: #1c3022 !important; border-color: #2f4536 !important; color: #cfe0c8 !important; }
+#theme-toggle:hover, #theme-toggle button:hover { border-color: var(--accent) !important; color: var(--accent) !important; }
+.dark #theme-toggle, .dark #theme-toggle button { background: #1c3022 !important; border-color: #2f4536 !important; color: #cfe0c8 !important; }
 
 /* Send button — forced (Gradio's default primary is orange) */
 #send-btn button {
@@ -225,7 +217,7 @@ def _bot(history):
 
 
 with gr.Blocks(theme=THEME, css=CSS, js=INIT_JS, title="The Dual Assistant") as demo:
-    theme_btn = gr.Button("\u263E", elem_id="theme-toggle")
+    theme_btn = gr.Button("\u25D0", elem_id="theme-toggle")
     gr.HTML(HERO)
     chatbot = gr.Chatbot(
         type="messages", height=420, show_label=False, elem_id="chat",
