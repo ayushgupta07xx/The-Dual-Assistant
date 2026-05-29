@@ -15,7 +15,7 @@
 **🎥 Video walkthrough:** https://youtu.be/HpwwtFg0ai4 &nbsp;•&nbsp; 
 **Repo:** https://github.com/ayushgupta07xx/dual-assistant-eval
 
-## 🎥 Demo
+## 🎥 Demo Video
 
 [![Watch the demo](https://img.youtube.com/vi/HpwwtFg0ai4/maxresdefault.jpg)](https://youtu.be/HpwwtFg0ai4)
 
