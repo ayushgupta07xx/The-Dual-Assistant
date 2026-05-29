@@ -19,7 +19,7 @@
 
 [![Watch the demo](https://img.youtube.com/vi/HpwwtFg0ai4/maxresdefault.jpg)](https://youtu.be/HpwwtFg0ai4)
 
-*▶ A ~90-second walkthrough — click to watch on YouTube.*
+*▶ A ~3 min walkthrough — click to watch on YouTube.*
 
 ## 📊 Results at a glance
 
