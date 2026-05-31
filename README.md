@@ -1,4 +1,4 @@
-# Dual-Assistant Risk Evaluation
+# The Dual-Assistant
 
 ![Python](https://img.shields.io/badge/Python-3.10-3776AB?logo=python&logoColor=white)
 ![OSS model](https://img.shields.io/badge/OSS-Llama_3.2_3B_(Ollama)-FF6F00)
